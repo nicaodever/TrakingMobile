@@ -45,29 +45,7 @@ fun RequestRace(navController: () -> NavHostController){
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Layout(){
-    Scaffold(
-//        bottomBar = {
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .background(color = DarkBlue),
-//                horizontalArrangement = Arrangement.SpaceAround,
-//            ) {
-//                TextButton(onClick = {}) {
-//                    Icon(
-//                        Icons.Default.Home, contentDescription = "Home",
-//                        tint = Color.White
-//                    )
-//                }
-//                TextButton(onClick = {}, modifier = Modifier) {
-//                    Icon(
-//                        Icons.Default.LocationOn, contentDescription = "Home",
-//                        tint = Color.White
-//                    )
-//                }
-//            }
-//        },
-    ) {
+
         ConstraintLayout(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -122,5 +100,5 @@ fun Layout(){
 
             }
         }
-    }
+
 }

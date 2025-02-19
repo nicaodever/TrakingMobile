@@ -31,9 +31,13 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "11"
+        jvmTarget = "1.8"
+
     }
     buildFeatures {
         compose = true
@@ -43,15 +47,26 @@ android {
     }
 }
 val nav_version = "2.8.5"
-val ktor_version: String by project
-val ktorVersion = "2.3.2"
+val ktor_version="3.0.3"
+
 dependencies {
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+  //koil loading pictures
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    //Search complete
+    implementation("com.mapbox.search:autofill:2.8.0-rc.1")
+    implementation("com.mapbox.search:discover:2.8.0-rc.1")
     implementation("com.mapbox.search:place-autocomplete:2.8.0-rc.1")
-    implementation("io.ktor:ktor-client-android:$ktorVersion")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
-    implementation("io.ktor:ktor-client-logging:$ktorVersion")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("com.mapbox.search:offline:2.8.0-rc.1")
+    implementation("com.mapbox.search:mapbox-search-android:2.8.0-rc.1")
+    implementation("com.mapbox.search:mapbox-search-android-ui:2.8.0-rc.1")
+
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+
     implementation("org.slf4j:slf4j-android:1.7.36")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("com.mapbox.navigationcore:android:3.6.1")
