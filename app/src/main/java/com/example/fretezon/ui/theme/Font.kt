@@ -15,3 +15,13 @@ val Inter = FontFamily(
         R.font.inter
     )
 )
+val InterExtraLight = FontFamily(
+    Font(
+        R.font.inter_extralight
+    )
+)
+val InclusiveSans = FontFamily(
+    Font(
+        R.font.inclusive_sans
+    )
+)

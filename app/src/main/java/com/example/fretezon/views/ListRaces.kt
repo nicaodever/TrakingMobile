@@ -72,6 +72,7 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.fretezon.R
 import com.example.fretezon.models.Frete
 import com.example.fretezon.models.Post
@@ -94,14 +95,7 @@ fun MainTemplate(navController: NavController){
     ) {
         val (menuBurguer, content, menubt, circle, menu) = createRefs()
 
-        //menuBurguer
-        TextButton (modifier = Modifier
-            .background(color = Color.Transparent)
-            .constrainAs(menuBurguer){
-                top.linkTo(parent.top, 30.dp)
-            }, onClick = {}) {
-            Icon(Icons.Default.Menu, contentDescription = "menuBurguer")
-        }
+
         Canvas(modifier = Modifier
             .constrainAs(circle){
                 top.linkTo(parent.top, 50.dp)
@@ -121,7 +115,9 @@ fun MainTemplate(navController: NavController){
        }
 
         // Menu bottom
-        TextButton(onClick = {},
+        TextButton(onClick = {
+            navController.navigate("registerFrete")
+        },
             modifier = Modifier
                 .clip(shape = CircleShape)
                 .background(color = Orange)
@@ -223,7 +219,7 @@ fun CardFrete(frete: Frete){
                    if(expanded) {
                            Row {
                                Image(
-                                   painter = painterResource(R.drawable.frete),
+                                   painter = rememberAsyncImagePainter(frete.foto_carga),
                                    contentDescription = "Imagem Do Frete",
                                    contentScale = ContentScale.Crop,
                                    modifier = Modifier
@@ -233,10 +229,6 @@ fun CardFrete(frete: Frete){
                                        .height(120.dp)
                                )
                                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                   Text("R$ ${frete.sugerir_tarifa}",
-                                       style = TextStyle(
-                                           color = Color.Blue.copy(0.8f)
-                                       ))
                                    Text(text = "Descrição: ${frete.descricao_carga}",
                                        fontFamily = Inter,
                                        color = TextGray

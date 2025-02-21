@@ -38,7 +38,10 @@ fun MenuBottom(navController: NavController, modifier: Modifier = Modifier) {
             },
             selected = false,
             onClick = {
-                navController.navigate("home")
+                navController.navigate("home"){
+                    popUpTo(0) // Remove todas as telas anteriores
+                    launchSingleTop = true
+                }
             }
         )
         NavigationBarItem(
@@ -55,7 +58,7 @@ fun MenuBottom(navController: NavController, modifier: Modifier = Modifier) {
             selected = false,
             onClick = {
                 navController.navigate("listRaces") {
-                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                    popUpTo(0) // Remove todas as telas anteriores
                     launchSingleTop = true
                     restoreState = true
                 }

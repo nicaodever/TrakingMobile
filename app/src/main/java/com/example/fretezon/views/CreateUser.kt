@@ -71,15 +71,15 @@ import java.util.regex.Pattern
 
 
 @Composable
-fun CreateUser() {
-    MainTemplate()
+fun CreateUser(navController: NavController) {
+    MainTemplate(navController)
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-private fun MainTemplate(){
+private fun MainTemplate(navController: NavController){
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -87,7 +87,6 @@ private fun MainTemplate(){
         val (header, inputArea, registerButton) = createRefs()
 
         val label = mutableListOf("name","email"," phone"," password")
-        val navController = rememberNavController()
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(bottomStart = 30.dp))
@@ -103,7 +102,7 @@ private fun MainTemplate(){
                 verticalAlignment = Alignment.CenterVertically) {
                 TextButton(
                     onClick = {
-                        navController.navigate("home")
+                        navController.navigate("firstPage")
                     }
                 ) {
                     Icon(Icons.Default.KeyboardArrowLeft, contentDescription = "arrowBack", tint = Color.White)
@@ -121,14 +120,14 @@ private fun MainTemplate(){
            .constrainAs(inputArea){
                top.linkTo(header.bottom)
            }) {
-           RegistrationForm()
+           RegistrationForm(navController)
        }
 
     }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistrationForm() {
+fun RegistrationForm(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -213,6 +212,7 @@ fun RegistrationForm() {
                         email = email,
                         senha = password,
                     )
+                    navController.navigate("home")
                 }
 
             },
@@ -269,6 +269,6 @@ fun Title(title: String){
 @Composable
 private fun PagePreview() {
     FretezonTheme {
-        MainTemplate()
+//        MainTemplate()
     }
 }

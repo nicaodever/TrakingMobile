@@ -1,4 +1,6 @@
 import android.annotation.SuppressLint
+import android.location.Location
+import android.util.Log
 import android.view.Menu
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -79,31 +81,29 @@ import com.example.fretezon.ui.theme.Inter
 import com.example.fretezon.ui.theme.InterSb
 import com.example.fretezon.ui.theme.Orange
 import com.example.fretezon.ui.theme.TextGray
+import com.mapbox.geojson.Point
 import com.mapbox.maps.MapView
 import com.mapbox.maps.extension.compose.MapEffect
 import com.mapbox.maps.extension.compose.MapboxMap
 import com.mapbox.maps.extension.compose.animation.viewport.rememberMapViewportState
 import com.mapbox.maps.extension.style.expressions.dsl.generated.color
 import com.mapbox.maps.plugin.PuckBearing
+import com.mapbox.maps.plugin.locationcomponent.LocationConsumer
 import com.mapbox.maps.plugin.locationcomponent.createDefault2DPuck
 import com.mapbox.maps.plugin.locationcomponent.location
 
 
-fun getMockCliente(): Frete {
-    return Frete(
-        id = 1,
-        descricao_carga = "Geladeira Electrolux 190,5 x 78,9 x 74,5 cm",
-        local_partida = "R.Sebatia Noroes, Ribeiro Junior, 23",
-        data_entrega = "21-02-25",
-        horario_retir = "14:00",
-        tp_veiculo = "pequeno porte",
-        destino = "R.Jesus me deu, Mauazinho, 1203",
-        foto_carga = "https://firebasestorage.googleapis.com/v0/b/qualisafe-7f25b.appspot.com/o/anuncios%2Fpexels-artempodrez-5025666.jpg?alt=media&token=29ff706a-be08-4ba2-9cfa-0a7f175f7d56"
-    )
-}
+
+data class UserLocation(
+    var latitude: Double = 0.0,
+    var longitude: Double = 0.0,
+)
 
 @Composable
 fun MapView(){
+    val userLocation = UserLocation()
+   var latitude by remember { mutableStateOf<Double?>(null) }
+    var longitude by remember { mutableStateOf<Double?>(null) }
     val mapViewportState = rememberMapViewportState {
         // Define a posição inicial da câmera sem animação
         setCameraOptions {
@@ -126,11 +126,18 @@ fun MapView(){
                 puckBearing = PuckBearing.HEADING
                 puckBearingEnabled = false
             }
+            val locationPlugin = mapView.location
+            locationPlugin.addOnIndicatorPositionChangedListener { point: Point ->
+                latitude = point.latitude()
+                longitude = point.longitude()
+                userLocation.latitude = point.latitude()
+                userLocation.longitude = point.longitude()
+                Log.d("Localização", "Latitude: $latitude, Longitude: $longitude")
+            }
             mapViewportState.transitionToFollowPuckState()
         }
     }
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextNotion(text: String){
@@ -201,7 +208,6 @@ fun SecondText(){
 }
 @Composable
 fun Carrossel(){
-    val frete = getMockCliente()
     val pagerState = rememberPagerState {
         3
     }
@@ -281,7 +287,9 @@ fun Home(navController: NavController){
             }
 
             // Menu bottom
-            TextButton(onClick = {},
+            TextButton(onClick = {
+                navController.navigate("registerFrete")
+            },
                 modifier = Modifier
                     .clip(shape = CircleShape)
                     .background(color = Orange)

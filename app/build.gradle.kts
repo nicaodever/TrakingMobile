@@ -54,8 +54,14 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    //Firebase Storage
+    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
   //koil loading pictures
     implementation("io.coil-kt:coil-compose:2.5.0")
+
     //Search complete
     implementation("com.mapbox.search:autofill:2.8.0-rc.1")
     implementation("com.mapbox.search:discover:2.8.0-rc.1")
@@ -66,6 +72,8 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
+    //Icons
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
 
     implementation("org.slf4j:slf4j-android:1.7.36")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
@@ -83,6 +91,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

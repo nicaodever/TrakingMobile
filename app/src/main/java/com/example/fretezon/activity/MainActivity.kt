@@ -1,10 +1,10 @@
 package com.example.fretezon.activity
 
+import AdressPage
 import CreateUser
 import FirstPage
 import Home
 import RequestRace
-import TemplateFirstPage
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
@@ -36,15 +36,20 @@ import com.example.fretezon.R
 import com.example.fretezon.models.Post
 import com.example.fretezon.utils.RetrofitInstance
 import com.example.fretezon.views.CardFrete
+import com.example.fretezon.views.CreateFrete
 import com.example.fretezon.views.FreteListScreen
 import com.example.fretezon.views.ListRaces
+import com.example.fretezon.views.LoginPage
 import com.example.fretezon.views.MainTemplate
+import com.example.fretezon.views.PostFreteScreen
 import com.example.fretezon.views.PostItem
 import com.example.fretezon.views.PostListScreen
+import com.example.fretezon.views.TemplateCreateFrete
 
 import com.mapbox.common.MapboxOptions
 import com.mapbox.search.autocomplete.PlaceAutocomplete
 import com.mapbox.search.autocomplete.PlaceAutocompleteSuggestion
+import com.mapbox.search.autofill.AddressAutofill
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -54,6 +59,8 @@ import retrofit2.http.POST
 
 
 class MainActivity : ComponentActivity(), PermissionsListener  {
+
+
     lateinit var permissionsManager: PermissionsManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,18 +76,27 @@ class MainActivity : ComponentActivity(), PermissionsListener  {
     override fun onPermissionResult(granted: Boolean) {
         if (granted) {
             setContent {
-//                val navController = rememberNavController()
-//                NavHost(navController = navController, startDestination = "home") {
-//                    composable(route = "listRaces") { ListRaces(navController) }
-//                    composable(route = "home") { Home(navController)  }
-//                }
-TemplateFirstPage()
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = "registerFrete") {
+                    composable(route = "firstPage") {FirstPage(navController) }
+                    composable(route = "login") { LoginPage(navController)}
+                    composable(route = "listRaces") { ListRaces(navController) }
+                    composable(route = "home") { Home(navController)}
+                    composable(route= "registerFrete") { CreateFrete(navController)  }
+                    composable(route = "registerUser") {CreateUser(navController)
+                    }
+                }
             }
         } else {
             Toast.makeText(this, "Permissão negada. O mapa não será exibido.", Toast.LENGTH_LONG)
                 .show()
         }
+
+
     }
+
+    //Adress Fill
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

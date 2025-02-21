@@ -87,7 +87,7 @@ fun Layout(){
                     }
             ) {
                 Image(
-                    painter = painterResource(R.drawable.background1),
+                    painter = painterResource(R.drawable.backgroun1),
                     contentDescription = "Imagem Background",
                     modifier = Modifier .width(120.dp),
                 )
